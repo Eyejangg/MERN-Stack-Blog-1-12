@@ -11,17 +11,23 @@ const Navbar = ({ isLoggedIn, onLogout, onOpenProfile }) => {
           onClick={() => navigate("/")}
           className="btn btn-ghost normal-case text-2xl font-bold cursor-pointer"
         >
-          SE-Blog
+          Software Testing
         </a>
       </div>
 
       <div className="flex-none gap-3">
         {!isLoggedIn ? (
           <>
-            <button className="btn btn-outline btn-sm" onClick={() => navigate("/login")}>
+            <button
+              className="btn btn-outline btn-sm"
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
-            <button className="btn btn-primary btn-sm" onClick={() => navigate("/register")}>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => navigate("/register")}
+            >
               Register
             </button>
           </>

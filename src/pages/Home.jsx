@@ -1,31 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import image1 from "../assets/SDLC.png";
+import image2 from "../assets/Mobile-testing-plan.jpg";
+import image3 from "../assets/TechnicalSkill.png";
 
 // ตัวอย่างข้อมูล Blog
 const blogPosts = [
   {
     id: 1,
-    title: "เริ่มต้นการเป็น Software Engineer",
+    title: "สร้างพื้นฐานความรู้ (Foundation)",
     description:
-      "คำแนะนำและแนวทางในการก้าวเข้าสู่วงการ Software Engineering ตั้งแต่พื้นฐานจนถึงการพัฒนาเต็มตัว",
-    image:
-      "https://images.unsplash.com/photo-1581091215360-7d9e6d8f4a14?auto=format&fit=crop&w=800&q=80",
+      "Software Development Life Cycle (SDLC) & Software Testing Life Cycle (STLC): เข้าใจกระบวนการพัฒนาและการทดสอบซอฟต์แวร์.",
+    image: image1,
   },
   {
     id: 2,
-    title: "ทำความเข้าใจระบบเวอร์ชันควบคุม (Git)",
+    title: "ฝึกฝนทักษะทางเทคนิค (Technical Skills)",
     description:
-      "Git คือเครื่องมือสำคัญที่นักพัฒนาใช้ในการจัดการและติดตามการเปลี่ยนแปลงของโค้ด...",
-    image:
-      "https://images.unsplash.com/photo-1581091215360-7d9e6d8f4a14?auto=format&fit=crop&w=800&q=80",
+      "Manual Testing: ฝึกทดสอบ Web/Mobile App, เขียน Test Case, และทำความเข้าใจ Bug Tracking (Jira, Bugzilla , Automation & API , รู้จัก SQL, Linux Commands, และ CI/CD เบื้องต้น. ).",
+    image: image2,
   },
   {
     id: 3,
-    title: "REST API คืออะไร?",
+    title: "พัฒนาทักษะอื่นๆ และสร้างโปรไฟล์ (Soft Skills & Portfolio)",
     description:
-      "REST API เป็นหนึ่งในสถาปัตยกรรมยอดนิยมที่ใช้สื่อสารระหว่างระบบ...",
-    image:
-      "https://images.unsplash.com/photo-1581091215360-7d9e6d8f4a14?auto=format&fit=crop&w=800&q=80",
+      "Soft Skills: ฝึกการสื่อสาร, การวิเคราะห์, และการแก้ปัญหา , Portfolio: สร้างผลงานจากการฝึกทดสอบ Web/Mobile และ API โดยใช้เครื่องมือที่เรียนรู้ เพื่อนำเสนอเวลาสมัครงาน",
+    image: image3,
   },
 ];
 
@@ -44,10 +44,8 @@ const Home = ({ isLoggedIn }) => {
     <div className="px-6 py-10 max-w-5xl mx-auto space-y-8">
       {/* Header */}
       <section className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">SE-Blog</h1>
-        <p className="text-lg opacity-80">
-          แหล่งรวมบทความเกี่ยวกับ Software Engineering, Coding และเทคโนโลยี
-        </p>
+        <h1 className="text-4xl font-bold mb-2">Software Tester</h1>
+        <p className="text-lg opacity-80"> บทความเกี่ยวกับ Software Tester </p>
 
         {/* ปุ่ม Create Post เฉพาะคน login */}
         {isLoggedIn && (
@@ -80,7 +78,9 @@ const Home = ({ isLoggedIn }) => {
 
               {/* ปุ่มต่างๆ */}
               <div className="flex gap-2">
-                <button className="btn btn-primary btn-sm">อ่านเพิ่มเติม</button>
+                <button className="btn btn-primary btn-sm">
+                  อ่านเพิ่มเติม
+                </button>
 
                 {/* ปุ่ม Edit เฉพาะคน login */}
                 {isLoggedIn && (
