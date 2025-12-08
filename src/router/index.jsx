@@ -8,6 +8,9 @@ import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import Profile from "../pages/Profile.jsx";
 import EditPost from "../pages/EditPost.jsx";
+import PostDetail from "../pages/PostDetail.jsx"; // เพิ่ม import
+
+// ...existing code...
 
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,35 +21,33 @@ const Router = () => {
   return createBrowserRouter([
     {
       path: "/",
-      element: (
-        <MainLayout
-          isLoggedIn={isLoggedIn}
-          onLogout={handleLogout}
-        />
-      ),
+      element: <MainLayout isLoggedIn={isLoggedIn} onLogout={handleLogout} />,
 
       children: [
         {
           path: "/",
-          element: <Home isLoggedIn={isLoggedIn} />,  // ⬅ แก้ตรงนี้!
+          element: <Home isLoggedIn={isLoggedIn} />,
         },
         {
-          path: "/CreatePost",
+          path: "/create-post", // เปลี่ยนเป็น lowercase ให้ตรงกับ navigate("/create-post")
           element: <Create isLoggedIn={isLoggedIn} />,
         },
         {
-          path: "/Register",
+          path: "/register", // เปลี่ยนเป็น lowercase ให้ตรงกับ navigate("/register")
           element: <Register />,
         },
         {
-          path: "/Login",
+          path: "/login", // เปลี่ยนเป็น lowercase ให้ตรงกับ navigate("/login")
           element: <Login onLogin={handleLogin} />,
         },
         {
           path: "/profile",
           element: <Profile isLoggedIn={isLoggedIn} />,
         },
-
+        {
+          path: "/post/:id", // เพิ่ม Route สำหรับ PostDetail
+          element: <PostDetail isLoggedIn={isLoggedIn} />,
+        },
         {
           path: "/edit/:id",
           element: <EditPost isLoggedIn={isLoggedIn} />,

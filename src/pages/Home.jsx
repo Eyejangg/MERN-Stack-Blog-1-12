@@ -78,7 +78,12 @@ const Home = ({ isLoggedIn }) => {
 
               {/* ปุ่มต่างๆ */}
               <div className="flex gap-2">
-                <button className="btn btn-primary btn-sm">
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() =>
+                    navigate(`/post/${post.id}`, { state: { post } })
+                  }
+                >
                   อ่านเพิ่มเติม
                 </button>
 
