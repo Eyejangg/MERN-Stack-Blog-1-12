@@ -71,7 +71,6 @@ const PostDetail = ({ isLoggedIn }) => {
           <p className="text-gray-700 mb-6">{post.description}</p>
 
           <div className="flex gap-2">
-            <button className="btn btn-primary btn-sm">อ่านเพิ่มเติม</button>
             {isLoggedIn && (
               <button
                 className="btn btn-warning btn-sm"
