@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+// import images ... (ตามเดิม)
 import image1 from "../assets/SDLC.png";
 import image2 from "../assets/Mobile-testing-plan.jpg";
 import image3 from "../assets/TechnicalSkill.png";
@@ -8,23 +9,23 @@ const posts = [
   {
     id: 1,
     title: "สร้างพื้นฐานความรู้ (Foundation)",
-    description:
-      "Software Development Life Cycle (SDLC) & Software Testing Life Cycle (STLC): เข้าใจกระบวนการพัฒนาและการทดสอบซอฟต์แวร์.",
+    description: "Software Development Life Cycle (SDLC)...",
     image: image1,
+    createdAt: "2023-10-01T10:00:00Z", // จำลองวันที่แบบ MongoDB
   },
   {
     id: 2,
     title: "ฝึกฝนทักษะทางเทคนิค (Technical Skills)",
-    description:
-      "Manual Testing: ฝึกทดสอบ Web/Mobile App, เขียน Test Case, และทำความเข้าใจ Bug Tracking (Jira, Bugzilla , Automation & API , รู้จัก SQL, Linux Commands, และ CI/CD เบื้องต้น. ).",
+    description: "Manual Testing: ฝึกทดสอบ Web/Mobile App...",
     image: image2,
+    createdAt: "2023-10-15T14:30:00Z",
   },
   {
     id: 3,
-    title: "พัฒนาทักษะอื่นๆ และสร้างโปรไฟล์ (Soft Skills & Portfolio)",
-    description:
-      "Soft Skills: ฝึกการสื่อสาร, การวิเคราะห์, และการแก้ปัญหา , Portfolio: สร้างผลงานจากการฝึกทดสอบ Web/Mobile และ API โดยใช้เครื่องมือที่เรียนรู้ เพื่อนำเสนอเวลาสมัครงาน",
+    title: "พัฒนาทักษะอื่นๆ และสร้างโปรไฟล์",
+    description: "Soft Skills: ฝึกการสื่อสาร...",
     image: image3,
+    createdAt: "2023-11-05T09:15:00Z",
   },
 ];
 
@@ -33,23 +34,31 @@ const PostDetail = ({ isLoggedIn }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ถ้ามี post ถูกส่งมาจาก navigate state ให้ใช้ตัวนั้น (เร็วกว่า)
   const postFromState = location.state?.post;
   const postId = Number(id);
   const post = postFromState || posts.find((p) => p.id === postId);
 
+  // ฟังก์ชันแปลงวันที่ให้เป็นภาษาไทยสวยๆ
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("th-TH", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   if (!post) {
     return (
-      <div className="px-6 py-10 max-w-4xl mx-auto">
-        <p className="text-center text-lg">ไม่พบโพสต์</p>
-        <div className="text-center mt-4">
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => navigate(-1)}
-          >
-            กลับ
-          </button>
-        </div>
+      <div className="px-6 py-10 max-w-4xl mx-auto text-center">
+        <p className="text-lg">ไม่พบโพสต์</p>
+        <button
+          className="btn btn-primary btn-sm mt-4"
+          onClick={() => navigate(-1)}
+        >
+          กลับ
+        </button>
       </div>
     );
   }
@@ -67,7 +76,27 @@ const PostDetail = ({ isLoggedIn }) => {
           className="w-full h-96 object-cover"
         />
         <div className="p-6">
-          <h1 className="text-3xl font-bold mb-3">{post.title}</h1>
+          <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+
+          {/* ส่วนแสดงวันที่ */}
+          <div className="text-sm text-gray-500 mb-4 flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>โพสต์เมื่อ: {formatDate(post.createdAt)}</span>
+          </div>
+
           <p className="text-gray-700 mb-6">{post.description}</p>
 
           <div className="flex gap-2">
