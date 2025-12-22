@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authentication.service";
 import Swal from "sweetalert2";
@@ -10,8 +10,13 @@ const Login = () => {
     password: "",
   });
 
-  const { logIn } = useContext(UserContext); // ฟังก์ชั่นล็อกอินจาก context
   const navigate = useNavigate();
+  const { logIn, userInfo } = useContext(UserContext); // ฟังก์ชั่นล็อกอินจาก context
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

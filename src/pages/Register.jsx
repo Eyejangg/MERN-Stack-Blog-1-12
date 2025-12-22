@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authentication.service";
 import Swal from "sweetalert2";
+import { UserContext } from "../context/UserContext";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -10,6 +11,12 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
+  const { userInfo } = useContext(UserContext); // ฟังก์ชั่นอัปเดตข้อมูลผู้ใช้จาก context
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [userInfo, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
