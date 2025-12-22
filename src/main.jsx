@@ -4,9 +4,12 @@ import Navbar from "./components/Navbar";
 import { RouterProvider } from "react-router";
 import router from "./routes/router";
 import "./index.css";
+import { UserContextProvider } from "./context/UserContextProvider";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </StrictMode>
 );

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authentication.service";
 import Swal from "sweetalert2";
+import { UserContext } from "../context/UserContext";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
     password: "",
   });
 
+  const { logIn } = useContext(UserContext); // ฟังก์ชั่นล็อกอินจาก context
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -37,6 +39,13 @@ const Login = () => {
           text: response.data?.message || "Login successful",
           icon: "success",
         }).then(() => {
+          const loggedUser = {
+            id: response.data?.user?.id,
+            username: response.data?.user?.username || user.username,
+            accessToken: response.data?.accessToken,
+            name: response.data?.user?.name || null,
+          };
+          logIn(loggedUser); // อัปเดตข้อมูลผู้ใช้ใน context and persist via TokenService
           navigate("/");
         });
         setUser({ username: "", password: "" });

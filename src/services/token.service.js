@@ -12,23 +12,30 @@ const getUser = () => {
   return user;
 };
 
+// ลบ cookie ชื่อ user และ ระบุลบเป็น path
 const removeUser = () => {
-  cookie.remove("user", { path: "/" }); // ลบ cookie ชื่อ user และ ระบุลบเป็น path /
+  cookie.remove("user", { path: "/" });
 };
 
 const setUser = (user) => {
-  cookie.set(
-    "user",
-    JSON.stringify({
-      id: user.id,
-      username: user.username,
-      accessToken: user.accessToken,
-    }),
-    {
-      path: "/",
-      expires: new Date(Date.now() + 86400), // cookie จะหมดอายุใน 1 วัน (86400 วินาที) 24*60*60
-    }
-  );
+  // ตรวจสอบว่า user ต้องมีข้อมูล และมี accessToken จริงๆ ถึงจะทำการ set
+  if (user && user.accessToken) {
+    cookie.set(
+      "user",
+      JSON.stringify({
+        id: user?.id,
+        username: user?.username,
+        accessToken: user.accessToken,
+      }),
+      {
+        path: "/",
+        expires: new Date(Date.now() + 86400),
+      }
+    );
+  } else {
+    removeUser();
+    // หากไม่มี user หรือไม่มี accessToken ให้ลบ cookie ทิ้ง
+  }
 };
 
 const TokenService = {

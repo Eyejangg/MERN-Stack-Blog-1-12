@@ -62,19 +62,26 @@ const Profile = () => {
             />
           </div>
 
-          <h2 className="text-xl font-bold text-center mt-3">
-            โปรไฟล์ผู้ใช้
-          </h2>
+          <h2 className="text-xl font-bold text-center mt-3">โปรไฟล์ผู้ใช้</h2>
 
           <div className="flex flex-col space-y-2">
-            <p><span className="font-semibold">ชื่อผู้ใช้:</span> {user.username}</p>
-            <p><span className="font-semibold">อีเมล:</span> {user.email}</p>
-            <p><span className="font-semibold">สถานะ:</span> {user.status}</p>
+            <p>
+              <span className="font-semibold">ชื่อผู้ใช้:</span> {user.username}
+            </p>
+            <p>
+              <span className="font-semibold">อีเมล:</span> {user.email}
+            </p>
+            <p>
+              <span className="font-semibold">สถานะ:</span> {user.status}
+            </p>
           </div>
 
           <div className="divider"></div>
 
-          <button onClick={() => setIsEditing(true)} className="btn btn-warning w-full">
+          <button
+            onClick={() => setIsEditing(true)}
+            className="btn btn-warning w-full"
+          >
             แก้ไขโปรไฟล์
           </button>
 
