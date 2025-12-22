@@ -2,15 +2,11 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center bg-neutral text-neutral-content p-6 shadow-inner">
+    <footer className="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
       <aside>
-        <h2 className="text-lg font-bold tracking-wide">Software Testing</h2>
-        <p className="opacity-80">
-          A hub for learning, sharing, and exploring Software Engineering
-          concepts.
-        </p>
-        <p className="mt-2">
-          © {new Date().getFullYear()} Software Testing— All rights reserved.
+        <p>
+          Copyright © {new Date().getFullYear()} - All right reserved by ACME
+          Industries Ltd
         </p>
       </aside>
     </footer>

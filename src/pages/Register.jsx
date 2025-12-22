@@ -1,104 +1,93 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/authentication.service";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser((user) => ({ ...user, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ username, email, password });
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    alert("สมัครสมาชิกเรียบร้อยแล้ว!");
+
+    if (!user.username || !user.password) {
+      Swal.fire({
+        title: "Error",
+        text: "Username or Password cannot be empty",
+        icon: "error",
+      });
+      return;
+    } else {
+      const response = await AuthService.register(user.username, user.password);
+
+      // console.log("response");
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Success",
+          text: response.data?.message || "Registration successful",
+          icon: "success",
+        }).then(() => {
+          navigate("/login");
+        });
+      }
+    }
   };
 
   return (
-    // Wrapper: จัดกึ่งกลางหน้าจอ และใส่พื้นหลังสีเทาอ่อน
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-800">สร้างบัญชีใหม่</h1>
-          <p className="text-slate-500 mt-2 text-sm">
-            สมัครสมาชิกเพื่อเริ่มใช้งาน Software Tester Tools
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center p-6">
+      <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-sm">
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-8">
+          Register
+        </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Username */}
-          <div>
-            <label className="label pt-0">
-              <span className="label-text font-medium text-slate-700">
-                ชื่อผู้ใช้
-              </span>
+        <form onSubmit={handleSubmit}>
+          {/* Username Field */}
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-semibold mb-2">
+              Username
             </label>
             <input
               type="text"
-              placeholder="Ex. tester01"
-              className="input input-bordered w-full bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg text-slate-700"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="username"
+              name="username"
+              value={user.username}
+              onChange={handleChange}
             />
           </div>
 
-          {/* Email */}
-          <div>
-            <label className="label pt-0">
-              <span className="label-text font-medium text-slate-700">
-                อีเมล
-              </span>
-            </label>
-            <input
-              type="email"
-              placeholder="name@example.com"
-              className="input input-bordered w-full bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg text-slate-700"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Password */}
-          <div>
-            <label className="label pt-0">
-              <span className="label-text font-medium text-slate-700">
-                รหัสผ่าน
-              </span>
+          {/* Password Field */}
+          <div className="mb-8">
+            <label className="block text-gray-700 text-sm font-semibold mb-2">
+              Password
             </label>
             <input
               type="password"
-              placeholder="••••••••"
-              className="input input-bordered w-full bg-gray-50 focus:bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg text-slate-700"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="*****"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
             />
           </div>
 
-          {/* Submit Button */}
-          <div className="pt-2">
-            <button
-              type="submit"
-              className="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white border-none rounded-lg text-lg shadow-md hover:shadow-lg transition-all"
-            >
-              สมัครสมาชิก
-            </button>
-          </div>
-        </form>
-
-        {/* Footer Link */}
-        <p className="text-center text-sm text-slate-500 mt-6">
-          มีบัญชีอยู่แล้ว?{" "}
-          <a
-            href="/login"
-            className="text-indigo-600 font-semibold hover:underline"
+          {/* Sign Up Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
           >
-            เข้าสู่ระบบ
-          </a>
-        </p>
+            Sign Up
+          </button>
+        </form>
       </div>
     </div>
   );
